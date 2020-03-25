@@ -4,6 +4,7 @@ use app\models\User;
 use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /**
  * @var $this yii\web\View
@@ -27,6 +28,12 @@ $this->title = 'User\'s balance';
                     return Yii::$app->formatter->asCurrency($model->userBalance->value);
                 },
             ],
+            [
+                'label' => Yii::t('app', 'Actions'),
+                'content' => function (User $model) {
+                    return Html::a('send', Url::to(['/site/transaction', 'userId' => $model->id]), ['class'=>'btn btn-primary']);
+                }
+            ]
         ],
     ]); ?>
 </div>

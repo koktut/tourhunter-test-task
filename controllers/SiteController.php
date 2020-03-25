@@ -120,16 +120,23 @@ class SiteController extends Controller
     }
 
     /**
+     * @param null $userId
      * @return Response|string
      * @throws \yii\base\InvalidConfigException
      */
-    public function actionTransaction()
+    public function actionTransaction($userId = null)
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect('/site/login');
         }
 
         $model = new TransactionForm();
+
+        if ($userId) {
+            if ($user = User::findOne($userId)) {
+                $model->userId = $userId;
+            };
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             /** @var User $sender */

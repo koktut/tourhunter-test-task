@@ -1,0 +1,63 @@
+version: '3'
+
+services:
+  php:
+    env_file:
+      - .env
+    build: ./docker/php
+    volumes:
+      - ~/.ssh:/root/.ssh
+      - ./:/srv/dev.tourhunter.com
+      - ./docker/log:/var/log/container
+    expose:
+      - 9005
+      - 9010
+    depends_on:
+      - postgres
+    logging:
+      driver: json-file
+      options:
+        max-size: "64m"
+        max-file: "4"
+    restart: on-failure
+
+  postgres:
+    env_file:
+      - .env
+    build: ./docker/postgres
+    volumes:
+      - ~/.ssh:/root/.ssh
+      - ./:/srv/dev.tourhunter.com
+      - ./docker/log:/var/log/container
+      - ./docker/postgres/data:/var/lib/postgresql/data
+    expose:
+      - 5432
+    ports:
+      - "5432:5432"
+    logging:
+      driver: json-file
+      options:
+        max-size: "128m"
+        max-file: "10"
+    restart: on-failure
+
+  nginx:
+    env_file:
+      - .env
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ~/.ssh:/root/.ssh
+      - ./:/srv/dev.tourhunter.com
+      - ./docker/log:/var/log/container
+      - ./docker/nginx:/etc/nginx/conf.d
+    depends_on:
+      - php
+    logging:
+      driver: json-file
+      options:
+        max-size: "32m"
+        max-file: "8"
+    restart: on-failure

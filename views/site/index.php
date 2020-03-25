@@ -31,7 +31,13 @@ $this->title = 'User\'s balance';
             [
                 'label' => Yii::t('app', 'Actions'),
                 'content' => function (User $model) {
-                    return Html::a('send', Url::to(['/site/transaction', 'userId' => $model->id]), ['class'=>'btn btn-primary']);
+                    $disabled = Yii::$app->user->isGuest ? 'disabled' : '';
+
+                    return Html::a(
+                        'send',
+                        Url::to(['/site/transaction', 'userId' => $model->id]),
+                        ['class' => 'btn btn-primary ' . $disabled]
+                    );
                 }
             ]
         ],

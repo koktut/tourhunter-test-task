@@ -1,26 +1,3 @@
-Test task
-The test task can be performed at any time during 14 days after applying for a vacancy. The test task is not paid.
-
-The user can only use a unique nickname without a password for authorization / registration. If there is no such user, then create it automatically and authorize. There is no separate registration. A public page should be made with a list of all users and their current balance, accessible without authorization.
-
-For authorized users available:
-
-The user can transfer any positive amount to another user (identification by nickname). In this case, the user's balance is reduced by the specified amount. The balance may be negative. Balance can not be less than -1000. The balance of all new users is by default 0. You can transfer any amount (with two decimal places for cents) only to an existing nickname. The user can not do the translation itself. Users in the database in the user table must have separate fields for balance. For transfers, be sure to use transactions.
-
-Use yii2 (latest stable version, basic project template). Installing database from migrations, installing external plugins from composer with minimal stable stability. Code design in accordance with the coding style and directory structure in yii2. The code should not have bugs, security holes, violations of the planned logic. For development speed, use crud to create / edit / delete objects, as well as other features of yii2. The code must be professional, supported, and understandable.
-
-Estimated lead time: 4-8 hours
-
-Put the code on some online git repository. Put the working site online so that you can see the result without installing the project locally.
-
-In the answer:
-
-Describe in detail your experience with the required technologies for the job?
-Write a link to the repository.
-Write a link to the working site.
-Write how much time was spent on the test task.
-Write how you assess your level of knowledge and skills, in the required technologies / for this position, on a 5-point scale.
-It is advisable - write your mark on the test https://phptestquestions.com
 Тестовое задание
 Тестовое задание можно выполнить в любое время на протяжении 14 дней после подачи заявки на вакансию. Тестовое задание не оплачивается. Как альтернативу тестовому заданию вы можете предоставить ссылку на ваш GitHub профиль с любым выполненным проектом такой же сложности и обьема.
 

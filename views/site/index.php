@@ -9,37 +9,45 @@ use yii\helpers\Url;
 /**
  * @var $this yii\web\View
  * @var ActiveDataProvider $dataProvider
+ * @var User $user
  */
 
 $this->title = 'User\'s balance';
+$columns = [
+    'id',
+    'username',
+    [
+        'attribute' => 'balance',
+        'label' => Yii::t('app', 'Balance'),
+        'value' => function (User $model) {
+            return Yii::$app->formatter->asCurrency($model->userBalance->value);
+        },
+    ],
+];
+
+if (!Yii::$app->user->isGuest) {
+    $columns[] = [
+        'label' => Yii::t('app', 'Actions'),
+        'content' => function (User $model) use (&$user) {
+            if ($user && $user->id == $model->id) {
+                return '';
+            }
+
+            return Html::a(
+                'transaction',
+                Url::to(['/site/transaction', 'userId' => $model->id]),
+                ['class' => 'btn btn-primary']
+            );
+        }
+    ];
+}
+
 ?>
 <div>
     <h1><?= Html::encode($this->title) ?></h1>
     <hr>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'columns' => [
-            'id',
-            'username',
-            [
-                'attribute' => 'balance',
-                'label' => Yii::t('app', 'Balance'),
-                'value' => function (User $model) {
-                    return Yii::$app->formatter->asCurrency($model->userBalance->value);
-                },
-            ],
-            [
-                'label' => Yii::t('app', 'Actions'),
-                'content' => function (User $model) {
-                    $disabled = Yii::$app->user->isGuest ? 'disabled' : '';
-
-                    return Html::a(
-                        'send',
-                        Url::to(['/site/transaction', 'userId' => $model->id]),
-                        ['class' => 'btn btn-primary ' . $disabled]
-                    );
-                }
-            ]
-        ],
+        'columns' => $columns,
     ]); ?>
 </div>

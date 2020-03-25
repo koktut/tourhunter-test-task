@@ -82,7 +82,10 @@ class SiteController extends Controller
             ]
         ]);
 
-        return $this->render('index', ['dataProvider' => $dataProvider]);
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+            'user' => Yii::$app->user->identity,
+        ]);
     }
 
     /**

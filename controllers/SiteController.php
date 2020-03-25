@@ -79,6 +79,9 @@ class SiteController extends Controller
                         'desc' => ['balance.value' => SORT_DESC],
                     ],
                 ],
+                'defaultOrder' => [
+                    'id' => SORT_ASC,
+                ]
             ]
         ]);
 

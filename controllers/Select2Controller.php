@@ -13,10 +13,9 @@ class Select2Controller extends Controller
 {
     /**
      * @param string|null $q
-     * @param int $id
      * @return array
      */
-    public function actionUser($q = null, $id = 0)
+    public function actionUser($q = null)
     {
         $results = ['results' => ['id' => '', 'text' => '']];
 
@@ -24,6 +23,7 @@ class Select2Controller extends Controller
             ->select(['id', 'text' => 'username'])
             ->filterWhere(['ilike', 'username', $q])
             ->limit(20)
+            ->orderBy(['username' => SORT_ASC])
             ->asArray()
             ->all();
 

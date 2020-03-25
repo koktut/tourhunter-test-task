@@ -2,13 +2,15 @@
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
+
 /* @var $model app\models\forms\TransactionForm */
 
+use app\models\User;
+use kartik\number\NumberControl;
 use kartik\select2\Select2;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\web\JsExpression;
-use app\models\User;
 
 $this->title = 'Transaction';
 $this->params['breadcrumbs'][] = $this->title;
@@ -36,10 +38,16 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
             'templateResult' => new JsExpression('function(user) { return user.text; }'),
-            'templateSelection' => new JsExpression('function (user) { return user.text; }'),        ],
+            'templateSelection' => new JsExpression('function (user) { return user.text; }'),],
     ]) ?>
 
-    <?= $form->field($model, 'value')->input('number', ['step' => '0.01']) ?>
+    <?= $form->field($model, 'value')->widget(NumberControl::class, [
+        'maskedInputOptions' => [
+            'prefix' => '$ ',
+            'suffix' => ' ¢',
+            'allowMinus' => false
+        ],
+    ]); ?>
 
     <div class="form-group">
         <div class="col-lg-offset-1 col-lg-11">

@@ -15,7 +15,9 @@ use yii\base\Model;
  */
 class TransactionForm extends Model
 {
+    /** @var int */
     public $userId;
+    /** @var float */
     public $value;
 
     /**
@@ -24,7 +26,7 @@ class TransactionForm extends Model
     public function rules()
     {
         return [
-            ['userId', 'required'],
+            [['userId', 'value'], 'required'],
             ['userId', 'integer'],
             ['value', 'number'],
         ];

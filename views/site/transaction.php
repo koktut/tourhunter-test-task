@@ -2,8 +2,8 @@
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
-
 /* @var $model app\models\forms\TransactionForm */
+/* @var $user User */
 
 use app\models\User;
 use kartik\number\NumberControl;
@@ -17,6 +17,11 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-login">
     <h1><?= Html::encode($this->title) ?></h1>
+
+    <div class="col-lg-offset-1">
+        <h3><?= Yii::t('app', 'Your balance: {balance}', ['balance' => Yii::$app->formatter->asCurrency($user->userBalance->value)]) ?></h3>
+        <hr>
+    </div>
 
     <?php $form = ActiveForm::begin([
         'id' => 'transaction-form',

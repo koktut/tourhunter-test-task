@@ -162,6 +162,7 @@ class SiteController extends Controller
 
         return $this->render('transaction', [
             'model' => $model,
+            'user' => Yii::$app->user->identity,
         ]);
     }
 }
